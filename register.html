@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro de Usuario</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="form-container">
+    <h2>Registro de Usuario</h2>
+
+    <form method="POST" action="../backend/register_process.php">
+      <input type="text" name="nombre" placeholder="Nombre completo" required>
+      <input type="email" name="email" placeholder="Correo electrónico" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
+
+      <label>
+        <input type="checkbox" name="consentimiento" required>
+        Acepto el <a href="#" onclick="alert('Tus datos serán usados solo con fines de autenticación y no serán compartidos.'); return false;">aviso de privacidad</a>
+      </label>
+
+      <button type="submit">Registrarse</button>
+    </form>
+
+    <p id="mensaje"></p>
+    <p>¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
+  </div>
+
+  <script>
+    // Mostrar mensajes por parámetros de URL
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("error")) {
+      const err = params.get("error");
+      if (err === "consentimiento") mensaje.innerText = "Debes aceptar el aviso de privacidad.";
+      if (err === "existe") mensaje.innerText = "Este correo ya está registrado.";
+    }
+    if (params.has("success")) {
+      mensaje.innerText = "Registro exitoso. Ya puedes iniciar sesión.";
+    }
+  </script>
+</body>
+</html>
